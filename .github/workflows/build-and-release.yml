@@ -33,7 +33,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: github.ref_type == 'tag' # run only on tag pushes
+    #if: github.ref_type == 'tag' # run only on tag pushes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
