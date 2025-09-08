@@ -55,19 +55,27 @@ jobs:
       - name: Verify tag matches pyproject.toml version
         run: |
           TAG_VERSION="${GITHUB_REF_NAME#v}"
-          echo $TAG_VERSION
+          echo "Tag Version :$TAG_VERSION"
           FILE_VERSION="${{ steps.get_version.outputs.version }}"
+          echo "File Version: $FILE_VERSION"
           if [ "$TAG_VERSION" != "$FILE_VERSION" ]; then
             echo "❌ Tag version ($TAG_VERSION) does not match pyproject.toml version ($FILE_VERSION)"
           fi
 
       - name: Build package
         run: python -m build
+
+      #- name: Get version from pyproject.toml
+        #id: get_version
+        #run: |
+         #VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+         #echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-         tag_name: ${{ github.ref_name }}
-         name: Release ${{ github.ref_name }}
+         tag_name: v${{ steps.get_version.outputs.version }}
+         name: Release v${{ steps.get_version.outputs.version }}
          files: dist/*
-        env:
-         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    env:
+     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
