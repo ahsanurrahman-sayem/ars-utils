@@ -4,6 +4,7 @@
 
 # Read the version from pyproject.toml
 VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+git pull --tags origin main
 
 # Check if the tag exists locally
 if git rev-parse "v$VERSION" >/dev/null 2>&1; then
