@@ -2,6 +2,8 @@ name: Build & Release Python Package
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'   # only run when a tag like v1.2.3 is pushed
 
