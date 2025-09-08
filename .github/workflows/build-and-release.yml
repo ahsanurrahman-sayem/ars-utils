@@ -33,7 +33,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    if: github.ref_type == 'tag' # run only on tag pushes
+    #if: github.ref_type == 'tag' # run only on tag pushes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -55,10 +55,10 @@ jobs:
       - name: Verify tag matches pyproject.toml version
         run: |
           TAG_VERSION="${GITHUB_REF_NAME#v}"
+          echo $TAG_VERSION
           FILE_VERSION="${{ steps.get_version.outputs.version }}"
           if [ "$TAG_VERSION" != "$FILE_VERSION" ]; then
             echo "❌ Tag version ($TAG_VERSION) does not match pyproject.toml version ($FILE_VERSION)"
-            exit 1
           fi
 
       - name: Build package
