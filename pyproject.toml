@@ -23,7 +23,7 @@ classifiers = [
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
-dependencies = [ "datetime", "zoneinfo"]
+dependencies = []
         
 [project.urls]
 Homepage = "https://github.com/ahsanurrahman-sayem/ars"
