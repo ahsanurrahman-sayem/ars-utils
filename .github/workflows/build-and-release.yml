@@ -62,13 +62,12 @@ jobs:
           fi
 
       - name: Build package
-        run: python -m build
-
+        run: python -m 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.ref_name }}
-          files: dist/*
+         tag_name: ${{ github.ref_name }}
+         name: Release ${{ github.ref_name }}
+         files: dist/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
