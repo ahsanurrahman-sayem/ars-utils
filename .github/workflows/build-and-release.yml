@@ -5,12 +5,35 @@ on:
     branches:
       - main
     tags:
-      - 'v*'   # only run when a tag like v1.2.3 is pushed
+      - 'v*'
 
 jobs:
-  build-release:
+  build:
     runs-on: ubuntu-latest
+    if: github.ref_type == 'branch' # run only on branch pushes
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install build tools
+        run: pip install build toml
+
+      - name: Extract version from pyproject.toml
+        run: |
+          python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])"
+
+      - name: Build package
+        run: python -m build
+
+
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag' # run only on tag pushes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,7 +54,7 @@ jobs:
 
       - name: Verify tag matches pyproject.toml version
         run: |
-          TAG_VERSION="${GITHUB_REF_NAME#v}" # remove leading 'v'
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
           FILE_VERSION="${{ steps.get_version.outputs.version }}"
           if [ "$TAG_VERSION" != "$FILE_VERSION" ]; then
             echo "❌ Tag version ($TAG_VERSION) does not match pyproject.toml version ($FILE_VERSION)"
