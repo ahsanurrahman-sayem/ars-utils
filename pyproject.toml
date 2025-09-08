@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ars"
-version = "v0.0.1"
+version = "0.0.1"
 authors = [
 	{name="Ahsanur Rahman Sayem", email="ahsanurrahman10000@icloud.com"}
 ]
