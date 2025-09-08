@@ -28,4 +28,4 @@ dependencies = [ "datetime", "zoneinfo"]
 [project.urls]
 Homepage = "https://github.com/ahsanurrahman-sayem/ars"
  
-Issues = "https://github.com/ahsanurrahman-sayem/ars/issues"]
+Issues = "https://github.com/ahsanurrahman-sayem/ars/issues"
