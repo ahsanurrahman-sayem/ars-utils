@@ -62,7 +62,7 @@ jobs:
           fi
 
       - name: Build package
-        run: python -m 
+        run: python -m build
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
