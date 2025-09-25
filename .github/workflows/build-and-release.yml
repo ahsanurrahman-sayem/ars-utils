@@ -20,18 +20,21 @@ jobs:
       - name: Install build tools
         run: pip install build toml
 
+      - name: Extract version from pyproject.toml
+        id: get_version
+        run: |
+          VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build package
         run: python -m build
 
-      - name: Rename wheel file to ars-latest.whl
-        run: mv dist/ars-*.whl dist/ars-latest.whl
-
-      - name: Create/Update "latest" GitHub Release
+      - name: Upload to 'latest' GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: latest
           name: Latest Release
-          files: dist/ars-latest.whl
+          files: dist/*
           draft: false
           prerelease: false
         env:
