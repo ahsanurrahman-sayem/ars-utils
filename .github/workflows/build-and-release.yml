@@ -1,16 +1,13 @@
-name: Build & Release Python Package
+name: Build & Update Latest Release
 
 on:
   push:
     branches:
       - main
-    tags:
-      - 'v*'
 
 jobs:
-  build:
+  build-and-release:
     runs-on: ubuntu-latest
-    if: github.ref_type == 'branch' # run only on branch pushes
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,74 +20,19 @@ jobs:
       - name: Install build tools
         run: pip install build toml
 
-      - name: Extract version from pyproject.toml
-        run: |
-          python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])"
-
       - name: Build package
         run: python -m build
 
-
-  release:
-    runs-on: ubuntu-latest
-    #if: github.ref_type == 'tag' # run only on tag pushes
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install build tools
-        run: pip install build toml
-
-      - name: Extract version from pyproject.toml
-        id: get_version
-        run: |
-          VERSION=$(python -c "import toml; print(toml.load('pyproject.toml')['project']['version'])")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Verify tag matches pyproject.toml version
-        run: |
-          TAG_VERSION="${GITHUB_REF_NAME#v}"
-          echo "Tag Version :$TAG_VERSION"
-          FILE_VERSION="${{ steps.get_version.outputs.version }}"
-          echo "File Version: $FILE_VERSION"
-          if [ "$TAG_VERSION" != "$FILE_VERSION" ]; then
-            echo "❌ Tag version ($TAG_VERSION) does not match pyproject.toml version ($FILE_VERSION)"
-          fi
-
-      - name: Build package
-        run: python -m build
-      #- name: Rename the v${{ steps.get_version.outputs.version }} to ars-latest.whl
-        #run: mv dist/ars-*.whl dist/ars-latest.whl
-
-      #New Update here
       - name: Rename wheel file to ars-latest.whl
         run: mv dist/ars-*.whl dist/ars-latest.whl
 
-      - name: Create GitHub Release
+      - name: Create/Update "latest" GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # This creates the release with the correct tag from your push.
-          tag_name: v${{ steps.get_version.outputs.version }}
-          # The name for the release will now include the version number.
-          name: Release v${{ steps.get_version.outputs.version }}
-          # This uploads all files in the 'dist' directory, which now includes both
-          # the versioned file and the 'ars-latest.whl' file.
-          files: dist/*
+          tag_name: latest
+          name: Latest Release
+          files: dist/ars-latest.whl
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #New update ends here
-
-      #- name: Create GitHub Release
-        #uses: softprops/action-gh-release@v2
-        #with:
-         #tag_name: v${{ steps.get_version.outputs.version }}
-         #name: Release version ars-latest.whl
-         #name: Release v${{ steps.get_version.outputs.version }}
-         #files: dist/*
-    #env:
-     #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
