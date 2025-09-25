@@ -77,7 +77,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
          tag_name: v${{ steps.get_version.outputs.version }}
-         name: Release v${{ steps.get_version.outputs.version }}
+         name: Release version ars-latest.whl
+         #name: Release v${{ steps.get_version.outputs.version }}
          files: dist/*
     env:
      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
