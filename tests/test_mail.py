@@ -1,6 +1,6 @@
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from ars.ars import mail
+from ars import mail
 from getpass import getpass
 SCOPES = ['https://mail.google.com/']
 
