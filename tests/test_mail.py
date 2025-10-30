@@ -1,6 +1,6 @@
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from ars import mail
+from ars import Email
 from getpass import getpass
 SCOPES = ['https://mail.google.com/']
 
@@ -8,8 +8,8 @@ SCOPES = ['https://mail.google.com/']
 #creds = flow.run_local_server(port=0)
 
 #token = creds.token  # OAuth2 access token
-email = mail.Email(sender_email="ahsanurrahman1.sayem10000@gmail.com") # password=getpass("Enter pasword (Not shown): "))
-email.setRecipient("skgroup10000@gamil.com")
+email = Email(sender_email="ahsanurrahman1.sayem10000@gmail.com",password="rveroqudghtzcdvj") # password=getpass("Enter pasword (Not shown): "))
+email.setRecipient("ahsanurrahman10000@icloud.com")
 email.setSubject("OAuth2 Test")
 email.setContent("Hey buddy! This is a secure OAuth2-based email.")
 email.send()

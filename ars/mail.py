@@ -63,8 +63,8 @@ class Email:
 
 		use_ssl = self.port == 465
 		if use_ssl:
-			#server = smtplib.SMTP_SSL(self.smtp_server, self.port)
-			server = smtplib.SMTP_SSL("localhost")
+			server = smtplib.SMTP_SSL(self.smtp_server, self.port)
+			#server = smtplib.SMTP_SSL("localhost")
 
 		else:
 			server = smtplib.SMTP(self.smtp_server, self.port)

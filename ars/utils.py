@@ -23,7 +23,7 @@ def openFile(fp):
 		else:
 			subprocess.run(["xdg-open", fp])
 
-def clear_reports():
+def clearReports():
 	try:
 		REPORT_DIR = os.path.join(os.path.dirname(__file__), "reports")
 		if not os.path.exists(REPORT_DIR):
@@ -43,9 +43,11 @@ def clear_reports():
 	except Exception as e:
 		print(f"Error: {e}")
 
-def isZero( value: str):
+def isZero(value: str):
 #this method checkhs if the given value is 0?
 #if its a 0 then return empty else returns timeStamp from the utils module, I Used this method in ScaleReport Application.
+	
+	# This method is used to check if the user had inserted a value in the QLineEdit object which is responsible to save time stamp of the moment when A Report is created.
 	return "" if value == "0" else getNow()
 
 def isDigit(value):
@@ -53,7 +55,7 @@ def isDigit(value):
 	return value if value.isdigit() else 0
 
 
-def isValue(value,valueToUse):
+def ifEmpty(value,valueToUse):
 # first check if value is not empty
 # if the value is empty then valueToUse otherwise return value. 
 	return value if value is not ""  else valueToUse
