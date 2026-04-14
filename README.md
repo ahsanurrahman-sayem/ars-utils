@@ -9,11 +9,17 @@
 python3 -m pip install https://github.com/ahsanurrahman-sayem/ars-utils/releases/download/latest/ars-0.5.0-py3-none-any.whl
 ```
 
-## Usage - util Module
+## Usage - utils Module
 
 ```python
-from ars import util
+import ars
+from ars import utils
 
+# -- List available modules inside the package --
+# -- Run same function to list available functions inside the moduels --
+
+for i in dir(ars):
+    print(i)
 ```
 
 ## Contributing
