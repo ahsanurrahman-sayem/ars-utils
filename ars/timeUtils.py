@@ -6,10 +6,10 @@ def getNow(zoneInfo:str) -> str:
 	now = datetime.now(ZoneInfo(zoneInfo))
 	return now.strftime("%d-%B-%y %I:%M:%S %p")
 
-def getToday(str:zoneInfo) -> str:
+def getToday(zoneInfo:str) -> str:
 	now = datetime.now(ZoneInfo(zoneInfo))
 	return now.strftime("%d-%B-%y")
 
-def getTimeStamp() -> str:
-	now = datetime.now(ZoneInfo("Asia/Dhaka"))
+def getTimeStamp(zoneInfo:str) -> str:
+	now = datetime.now(ZoneInfo(zoneInfo))
 	return now.strftime("_%d_%B_%y_%I_%M_%S_%p_")
