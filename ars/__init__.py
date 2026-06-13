@@ -6,9 +6,9 @@ from .timeUtils import getTimeStamp
 
 # Helper functions/methods for PyQtScaleReport project.
 from .fileUtils import openFile
-from .fileUtils import isZero
-from .fileUtils import isDigit
-from .fuleUtils import ifEmpty
+from .validator import isZero
+from .validator import isDigit
+from .validator import ifEmpty
 
 # color_utils.py module
 from .color_utils import getColorPallete
