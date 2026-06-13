@@ -6,7 +6,7 @@
 ### Installation
 
 ```bash
-python3 -m pip install https://github.com/ahsanurrahman-sayem/ars-utils/releases/download/latest/ars-0.5.0-py3-none-any.whl
+python3 -m pip install https://github.com/ahsanurrahman-sayem/ars-utils/releases/download/latest/ars-1.2.0-py3-none-any.whl
 ```
 
 ## Usage - utils Module
